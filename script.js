@@ -1,6 +1,8 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+var taskDisplayEl = $('#task-display');
+
 
 var today = dayjs();
 $('#currentDay').text(today.format('dddd, MMMM D YYYY, h:mm a'));
@@ -20,8 +22,26 @@ function readTasksFromStorage() {
   return tasks;
 }
 
+function printTaskData() {
+  // clear current projects on the page
+  taskDisplayEl.empty();
+var tasks= readTasksFromStorage();
+taskDisplayEl.append(tasks)
+}
 
-$(function () {
+function handleTaskFormSubmit(event){
+  event.preventDefault();
+  var newTask={info:details,};
+  var tasks=readTasksFromStorage();
+  tasks.push(newTask);
+  saveTasksToStorage(tasks);
+  printTaskData();
+}
+
+taskDisplayEl.on('save', handleTaskFormSubmit);
+
+
+
 
 
 
@@ -43,5 +63,3 @@ $(function () {
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
-  // TODO: Add code to display the current date in the header of the page.
-});
