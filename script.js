@@ -6,7 +6,26 @@ var today = dayjs();
 $('#currentDay').text(today.format('dddd, MMMM D YYYY, h:mm a'));
 
 
+function saveTasksToStorage(tasks) {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function readTasksFromStorage() {
+  var tasks = localStorage.getItem('tasks');
+  if (tasks) {
+    tasks = JSON.parse(tasks);
+  } else {
+    tasks = [];
+  }
+  return tasks;
+}
+
+
 $(function () {
+
+
+
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
