@@ -2,10 +2,7 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 var taskDisplayEl = $('#task-display');
-
-
-var today = dayjs();
-$('#currentDay').text(today.format('dddd, MMMM D YYYY, h:mm a'));
+var timeDisplayEl = $('#currentDay');
 
 
 function saveTasksToStorage(tasks) {
@@ -27,6 +24,13 @@ function printTaskData() {
   taskDisplayEl.empty();
 var tasks= readTasksFromStorage();
 taskDisplayEl.append(tasks)
+
+var rowEl= $('<div>');
+
+
+
+
+
 }
 
 function handleTaskFormSubmit(event){
@@ -41,7 +45,15 @@ function handleTaskFormSubmit(event){
 taskDisplayEl.on('save', handleTaskFormSubmit);
 
 
+function displayTime() {
+  var rightNow = dayjs().format('MMM DD, YYYY [at] hh:mm:ss a');
+  timeDisplayEl.text(rightNow);
+}
 
+displayTime();
+setInterval(displayTime, 1000);
+
+printTaskData();
 
 
 
